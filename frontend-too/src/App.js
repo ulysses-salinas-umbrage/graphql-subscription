@@ -14,6 +14,9 @@ function App() {
 
   return (
     <div className='App'>
+      {/** consider pushing the name to localstorage, then pulling it out when the component mounts, that way you don't need have this ternary
+       * instead, you could have a protected route to the messages screen only when a name is detected in localStorage, else route to the enter name screen
+       */}
       {nameEntered ? (
         <div style={{ textAlign: 'center' }}>
           <h1>{nameEntered}'s Messages</h1>

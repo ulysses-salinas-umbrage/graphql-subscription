@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
 
+//why is this not in graphql.js?
 const ADD_MESSAGE = gql`
   mutation Mutation($from: String!, $message: String!) {
     sendMessage(from: $from, message: $message) {
@@ -11,8 +12,12 @@ const ADD_MESSAGE = gql`
   }
 `;
 
+//consider destructuring the props so you don't have to use object notation for everything
 const AddMessage = props => {
+  //avoid having mutable variables. Instead, use the useState hook
   let input;
+
+  //if you don't need the data variable, don't destructure it out
   const [sendMessage, { data, loading, error }] = useMutation(ADD_MESSAGE);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
