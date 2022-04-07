@@ -1,33 +1,15 @@
 import React, { useEffect } from 'react';
 import { Card, Row, Container } from 'react-bootstrap';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { MESSAGES_SUBSCRIPTION, CHAT_MESSAGES } from '../graphql';
 
-const MESSAGES_SUBSCRIPTION = gql`
-  subscription Subscription {
-    messageSent {
-      id
-      from
-      message
-    }
-  }
-`;
 const ChatMessages = () => {
-  const { subscribeToMore, loading, error, data } = useQuery(gql`
-    {
-      chats {
-        id
-        from
-        message
-      }
-    }
-  `);
+  const { subscribeToMore, loading, error, data } = useQuery(CHAT_MESSAGES);
 
   useEffect(() => {
     const unsubscribe = subscribeToMore({
       document: MESSAGES_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
-        console.log('PREVIOUS!!!!', prev);
-        console.log(subscriptionData.data);
         if (!subscriptionData.data) return prev;
         const newFeedItem = subscriptionData.data.messageSent;
         return {
