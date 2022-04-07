@@ -6,9 +6,12 @@ import { ADD_MESSAGE } from '../graphql';
 const AddMessage = () => {
   let input;
   let name = localStorage.getItem('name');
+
   const [sendMessage, { loading, error }] = useMutation(ADD_MESSAGE);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
   return (
     <div>
       <Form

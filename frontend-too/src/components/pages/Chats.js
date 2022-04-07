@@ -14,9 +14,9 @@ const Chats = () => {
 
   return (
     <div>
-      <h1>{name}'s Messages:</h1>
-      <hr/>
+      <h1>{name}'s Messages</h1>
       <ChatMessages />
+      <br/>
       <AddMessage />
     </div>
   );
