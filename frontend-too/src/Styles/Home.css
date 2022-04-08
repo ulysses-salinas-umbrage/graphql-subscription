@@ -1,0 +1,19 @@
+.homePage {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.homePage h1 {
+  color: #990202;
+}
+
+.homePage button {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+}
+/*# sourceMappingURL=Home.css.map */

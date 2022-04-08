@@ -1,0 +1,27 @@
+@import '../Variables/Variables.scss';
+
+.chatBoxes {
+  display: flex;
+  flex-wrap: wrap;
+
+  p {
+    color: $blackColor;
+  }
+
+  h5 {
+    color: $redColor;
+  }
+
+  .chatBox {
+    width: 200px;
+    border: 1px solid black;
+    margin: 10px;
+  }
+
+  .filterBox {
+    width: 200px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: rgb(255, 208, 0);
+  }
+}

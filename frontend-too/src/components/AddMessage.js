@@ -1,21 +1,17 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { ADD_MESSAGE } from '../graphql';
 
-const ADD_MESSAGE = gql`
-  mutation Mutation($from: String!, $message: String!) {
-    sendMessage(from: $from, message: $message) {
-      from
-      message
-    }
-  }
-`;
-
-const AddMessage = props => {
+const AddMessage = () => {
   let input;
-  const [sendMessage, { data, loading, error }] = useMutation(ADD_MESSAGE);
+  let name = localStorage.getItem('name');
+
+  const [sendMessage, { loading, error }] = useMutation(ADD_MESSAGE);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
   return (
     <div>
       <Form
@@ -23,13 +19,13 @@ const AddMessage = props => {
         onSubmit={e => {
           e.preventDefault();
           sendMessage({
-            variables: { from: props.messenger, message: input.value },
+            variables: { from: name, message: input.value },
           });
           input.value = '';
         }}
       >
         <Form.Group>
-          <Form.Label>Your Message</Form.Label>
+          <h1>Enter Message</h1>
           <Form.Control
             ref={node => {
               input = node;

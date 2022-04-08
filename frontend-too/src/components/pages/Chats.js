@@ -1,0 +1,26 @@
+import React, { useEffect } from 'react';
+import AddMessage from '../AddMessage';
+import ChatMessages from '../ChatMessages';
+import { useNavigate } from 'react-router-dom';
+
+
+const Chats = () => {
+  let navigate = useNavigate();
+  let name = localStorage.getItem('name');
+  useEffect(() => {
+    if (!name) {
+      navigate('/');
+    }
+  });
+
+  return (
+    <div>
+      <h1 style={{ margin: '30px' }}>{name}'s Messages</h1>
+      <ChatMessages />
+      <br />
+      <AddMessage />
+    </div>
+  );
+};
+
+export default Chats;
