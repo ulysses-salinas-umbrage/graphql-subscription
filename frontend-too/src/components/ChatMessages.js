@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Container, Form } from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 import { MESSAGES_SUBSCRIPTION, CHAT_MESSAGES } from '../graphql';
-
+import '../Styles/ChatMessages.css';
 const ChatMessages = () => {
+  const [filter, setFilter] = useState('');
+
   const { subscribeToMore, loading, error, data } = useQuery(CHAT_MESSAGES);
-  const [chats, setChats] = useState('');
 
   useEffect(() => {
     const unsubscribe = subscribeToMore({
@@ -23,77 +23,47 @@ const ChatMessages = () => {
     };
   }, [subscribeToMore]);
 
-  const onChange = e => {
-    const copies = [...data.chats];
-    if (e.target.value !== '') {
-      setChats(
-        copies.map(copy => {
-          let highlight = copy.message.replace(
-            new RegExp(e.target.value, 'gi'),
-            match =>
-              `<mark style="background-color:yellow; padding:0em">${match}</mark>`
-          );
-          return {
-            ...copy,
-            message: highlight,
-          };
-        })
-      );
-    } else {
-      setChats('');
-    }
+  const handleChange = e => {
+    setFilter(e.target.value);
   };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
+  const determineClass = message => {
+    if (message.match(filter) && filter !== '') {
+      return 'filterBox';
+    } else {
+      return 'chatBox';
+    }
+  };
+
   return (
-    <Container>
-      {chats ? (
-        <Row>
-          {chats.map(chat => (
-            <div
-              key={chat.id}
-              className='d-flex flex-wrap justify-content-around'
-            >
-              <Card
-                className='d-flex mb-4'
-                style={{ width: '10rem', height: '5rem' }}
-              >
-                <Card.Header style={{ color: 'red' }}>{chat.from}:</Card.Header>
-                <p dangerouslySetInnerHTML={{ __html: chat.message }} />
-              </Card>
-            </div>
-          ))}
-        </Row>
-      ) : (
-        <Row>
-          {data.chats.map(chat => (
-            <div
-              key={chat.id}
-              className='d-flex flex-wrap justify-content-around'
-            >
-              <Card
-                className='d-flex mb-4'
-                style={{ width: '10rem', height: '5rem' }}
-              >
-                <Card.Header style={{ color: 'red' }}>{chat.from}:</Card.Header>
-                <p>{chat.message}</p>
-              </Card>
-            </div>
-          ))}
-        </Row>
-      )}
+    <div className='chatsMessages'>
+      <div className='chatBoxes'>
+        {data.chats.map(chat => (
+          <div key={chat.id} className={determineClass(chat.message)}>
+            <h5>{chat.from}:</h5>
+            <p>{chat.message}</p>
+          </div>
+        ))}
+      </div>
+
       <br />
       <h1>Filter Messages:</h1>
-      <input type='text' placeholder='Filter messages' onChange={onChange} />
-
-      <Form.Select onChange={onChange}>
+      <input list='select' name='select' onChange={handleChange} />
+      <datalist
+        className='form-control'
+        id='select'
+        style={{ display: 'none' }}
+      >
         {data.chats.map((item, i) => (
-          <option key={i}>{item.message}</option>
+          <option style={{ display: 'none' }} key={i}>
+            {item.message}
+          </option>
         ))}
-      </Form.Select>
-    </Container>
+      </datalist>
+    </div>
   );
 };
 

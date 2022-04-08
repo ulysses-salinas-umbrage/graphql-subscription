@@ -1,0 +1,14 @@
+@import '../Variables/Variables.scss';
+
+.homePage {
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    color: $redColor;
+  }
+
+  button {
+      @include buttonStyle
+  }
+}

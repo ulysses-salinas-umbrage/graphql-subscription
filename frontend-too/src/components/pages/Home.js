@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import '../../Styles/Home.css';
 
 const Home = () => {
   let navigate = useNavigate();
@@ -15,20 +15,24 @@ const Home = () => {
     localStorage.setItem('name', e.target[0].value);
   };
   return (
-    <Form
-      style={{ maxWidth: '75%', display: 'inline-block' }}
-      onSubmit={handleOnSubmit}
-    >
-      <br />
-      <Form.Group>
-        <Form.Label>Name</Form.Label>
-        <Form.Control placeholder='Enter name' />
-      </Form.Group>
-      <br />
-      <Button variant='primary' type='submit'>
-        Enter
-      </Button>
-    </Form>
+    <div className='homePage'>
+      <h1>Welcome to Chats</h1>
+      <div>
+        <form
+          style={{ maxWidth: '75%', display: 'inline-block' }}
+          onSubmit={handleOnSubmit}
+        >
+          <br />
+          <h4>Enter Name</h4>
+          <input placeholder='Enter name' />
+          <br />
+          <br />
+          <button variant='primary' type='submit'>
+            Enter
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

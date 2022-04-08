@@ -3,6 +3,7 @@ import AddMessage from '../AddMessage';
 import ChatMessages from '../ChatMessages';
 import { useNavigate } from 'react-router-dom';
 
+
 const Chats = () => {
   let navigate = useNavigate();
   let name = localStorage.getItem('name');
@@ -14,9 +15,9 @@ const Chats = () => {
 
   return (
     <div>
-      <h1>{name}'s Messages</h1>
+      <h1 style={{ margin: '30px' }}>{name}'s Messages</h1>
       <ChatMessages />
-      <br/>
+      <br />
       <AddMessage />
     </div>
   );

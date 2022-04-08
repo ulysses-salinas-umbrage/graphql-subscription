@@ -25,7 +25,7 @@ const AddMessage = () => {
         }}
       >
         <Form.Group>
-          <Form.Label>Your Message</Form.Label>
+          <h1>Enter Message</h1>
           <Form.Control
             ref={node => {
               input = node;

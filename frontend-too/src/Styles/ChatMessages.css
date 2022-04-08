@@ -1,0 +1,29 @@
+.chatBoxes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.chatBoxes p {
+  color: black;
+}
+
+.chatBoxes h5 {
+  color: #990202;
+}
+
+.chatBoxes .chatBox {
+  width: 200px;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.chatBoxes .filterBox {
+  width: 200px;
+  border: 1px solid black;
+  margin: 10px;
+  background-color: #ffd000;
+}
+/*# sourceMappingURL=ChatMessages.css.map */
